@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#356e92;
+            color: rgb(32, 32, 32);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .form-container {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(49, 91, 146, 0.5);
+            margin-bottom: 20px; /* Adiciona espaço para o footer */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .form-row > div {
+            flex: 1;
+            margin-right: 1cm;
+        }
+
+        .form-row > div:last-child {
+            margin-right: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select {
+            width: 95%;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: rgb(32, 32, 32);
+            margin-top: 5px;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #61dafb;
+            outline: none;
+        }
+
+        button {
+            padding: 10px;
+            width: calc(50% - 10px);
+            margin: 5px 5px 5px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #61dafb;
+            color: black;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #21a1f1;
+        }
+
+        footer {
+            background-color: #080808;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            margin-top: auto; /* Faz o footer ocupar o espaço disponível */
+        }
+
+        .footer-copy {
+            color: rgb(184, 184, 184);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Cadastro de Usuário</h2>
+        <form id="cadastroForm" action="cadastrar_usuario.php" method="POST">
+            <div class="form-row">
+                <div>
+                    <label for="nome">Nome completo:</label>
+                    <input type="text" id="nome" name="nome_completo" required minlength="15" maxlength="80"
+                        pattern="[A-Za-z\s]+" title="Deve conter apenas letras e espaços">
+                </div>
+                <div>
+                    <label for="sexo">Gênero:</label>
+                    <select id="sexo" name="sexo" required>
+                        <option value="">Selecione</option>
+                        <option value="masculino">Masculino</option>
+                        <option value="feminino">Feminino</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label for="data_nascimento">Data de Nascimento:</label>
+                    <input type="date" id="data_nascimento" name="data_nascimento" required>
+                </div>
+                <div>
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" name="cpf" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+                        title="Formato: 000.000.000-00">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nome_materno">Nome Materno:</label>
+                <input type="text" id="nome_materno" name="nome_materno" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label for="telefone_celular">Telefone Celular:</label>
+                    <input type="text" id="telefone_celular" name="telefone_celular" required
+                        pattern="\(\+55\)\d{2}-\d{5}-\d{4}" title="Formato: (+55)XX-XXXXX-XXXX">
+                </div>
+                <div>
+                    <label for="telefone_fixo">Telefone Fixo:</label>
+                    <input type="text" id="telefone_fixo" name="telefone_fixo" pattern="\(\+55\)\d{2}-\d{4}-\d{4}"
+                        title="Formato: (+55)XX-XXXX-XXXX">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="endereco">Endereço Completo:</label>
+                <input type="text" id="endereco" name="endereco_completo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="login">Usuário:</label>
+                <input type="text" id="login" name="login" maxlength="6" minlength="6" onkeypress="return lettersOnly(event);" required>
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha_hash" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmacao_senha">Confirmação da Senha:</label>
+                <input type="password" id="confirmacao_senha" name="confirmacao_senha" required>
+            </div>
+            <button type="submit">Enviar</button>
+            <button type="reset">Limpar Tela</button>
+        </form>
+    </div>
+    <footer>
+           <div class="footercontainer">
+              
+                </div>
+                <div class="footerNav">
+                  <ul>
+                    <li><a href="index.html"> Home </a></li>
+                    <li><a href="quemsomos.html">Quem Somos</a></li>
+                    <li><a href="login.html"> Entrar </a></li>
+                  </ul>
+                  <div class="footer-copy">
+                    <p>All Markets © 2024</p>
+        </div>
+    </footer>
+
+    <script>
+        
+                            function validaCPF(cpf) {
+                                cpf = cpf.replace(/\D/g, '');
+                                if (cpf.length !== 11) {
+                                    console.error('CPF inválido. Documento não possui 11 caracteres.');
+                                    return false;
+                                }
+
+                                const proximoDigitoVerificador = (cpfIncompleto) => {
+                                    let somatoria = 0;
+                                    for (let i = 0; i < cpfIncompleto.length; i++) {
+                                        let digito = cpfIncompleto.charAt(i);
+                                        let constante = (cpfIncompleto.length + 1 - i);
+                                        somatoria += Number(digito) * constante;
+                                    }
+                                    const resto = somatoria % 11;
+                                    return resto < 2 ? "0" : (11 - resto).toString();
+                                }
+
+                                let primeiroDigitoVerificador = proximoDigitoVerificador(cpf.substring(0, 9));
+                                let segundoDigitoVerificador = proximoDigitoVerificador(cpf.substring(0, 9) + primeiroDigitoVerificador);
+                                let cpfCorreto = cpf.substring(0, 9) + primeiroDigitoVerificador + segundoDigitoVerificador;
+
+                                if (cpf !== cpfCorreto) {
+                                    console.error('CPF inválido. Dígitos verificadores não conferem.');
+                                    return false;
+                                }
+                                console.log("CPF Válido!");
+                                return true;
+                            }
+
+                            function validacao(event) {
+                                event.preventDefault();
+
+                                const cpfInput = document.getElementById("campo-cpf");
+                                const cpfValido = validaCPF(cpfInput.value);
+                                if (!cpfValido) {
+                                    alert("CPF inválido. Por favor, verifique e tente novamente.");
+                                    return;
+                                }
+
+                                // Verifica se já existe um objeto de logins no localStorage
+                                const username = document.getElementById("campo-nome").value;
+                                const loginsString = localStorage.getItem("users");
+                                const existingLogins = loginsString ? JSON.parse(loginsString) : {};
+
+                                // Adiciona o novo login ao objeto de logins
+                                existingLogins[username] = password;
+
+                                // Atualiza o objeto de logins no localStorage
+                                localStorage.setItem("users", JSON.stringify(existingLogins));
+
+                                alert("Registrado com sucesso. Você pode agora fazer o login.");
+
+                                window.location.href = "login.html";
+                            }
+
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const form = document.getElementById("form");
+                                form.addEventListener("submit", validacao);
+                            });
+                       
+        document.getElementById('cadastroForm').addEventListener('submit', function (event) {
+            const senha = document.getElementById('senha').value;
+            const confirmacaoSenha = document.getElementById('confirmacao_senha').value;
+
+            // Verificação de senhas
+            if (senha !== confirmacaoSenha) {
+                alert('As senhas não coincidem!');
+                document.getElementById('senha').style.borderColor = "red";
+                document.getElementById('confirmacao_senha').style.borderColor = "red";
+                event.preventDefault();  // Impede o envio do formulário
+            } else {
+                // Se as senhas forem iguais, redireciona para a página de login
+                alert('Cadastro realizado com sucesso! Redirecionando para a tela de login...');
+                window.location.href = "login.html"; // Corrigido para incluir aspas
+            }
+        });
+
+        function lettersOnly(evt) {
+            evt = (evt) ? evt : event;
+            var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+                ((evt.which) ? evt.which : 0));
+            if (charCode > 31 && (charCode < 65 || charCode > 90) &&
+                (charCode < 97 || charCode > 122)) {
+                alert("Enter letters only.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+
+</html>

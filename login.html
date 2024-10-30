@@ -1,0 +1,49 @@
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Acessar conta</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <!-- simplifiquei pq tava muito complexo, e precisava debugar -->
+    <div class="login">
+        <form id="form-login">
+            <h1>Login</h1>
+            <input type="text" placeholder="Usuário" id="usuario" required>
+            <input type="password" placeholder="Senha" id="senha" required>
+            <button type="submit">Entrar</button>
+            <div>
+                <p>Não tem uma conta? <a href="cadastro2.html">Registre-se</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("form-login").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const username = document.getElementById("usuario").value;
+            const password = document.getElementById("senha").value;
+
+            fetch('/APIALLMARKETESPHP/login_usuario', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({login: username, senha: password}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.mensagem);
+                if (data.mensagem === "Login bem-sucedido.") {
+                    window.location.href = "index.html";
+                }
+            })
+            .catch(error => {
+                alert('Erro ao realizar login. Tente novamente.');
+            });
+        });
+    </script>
+</body>
+</html>
